@@ -7,10 +7,6 @@ if (!R::testConnection()) {
 		echo "Не удалось подключиться к БД";
 		exit;
 	}
-else {
-	echo "Подключение к БД успешно \n";
-}
-
 function dbcreatefield( $post ) {
     $book = R::dispense( "prod" );
     $book->product = $post["product"];
@@ -39,17 +35,27 @@ if ($_GET['demo'] == 1) {
     $msg = json_decode($json, true);
     echo var_dump($msg);
 }
-if ($_GET['demo'] == 3) {
-    $json = file_get_contents('./test.json', true);
-    $msg = json_decode($json, true);
-    dbcreatefield( $msg );
-}
-
 if ($_GET['demo'] == 2) {
     $prod = R::load( 'prod', 1 );
     R::close();
     echo var_dump($prod);
     echo "\n \n";
     echo json_encode( $prod );
+}
+if ($_GET['demo'] == 3) {
+    $json = file_get_contents('./test.json', true);
+    $msg = json_decode($json, true);
+    dbcreatefield( $msg );
+}
+if ($_GET['demo'] == 4) {
+    $json = file_get_contents('php://input');
+    $msg = json_decode($json, true);
+    //echo var_dump($msg);
+    echo json_encode($msg);
+}
+if ($_GET['demo'] == 5) {
+    $prod = R::load( 'prod', 1 );
+    R::close();
+    echo json_encode($prod);
 }
 ?>

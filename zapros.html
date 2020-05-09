@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>тестовая страница</title>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+</head>
+
+<body>
+<script language="JavaScript">
+        async function postData() {
+            const url = '/index.php?work=1';
+            const data = {
+                "product":"airpordskarabin",
+                "barcode":"2000172387150",
+                "releaseDate":"2020-05-09T00:00:00.000Z",
+                "issued":true,
+                "person":{
+                    "id":12346,
+                    "name":"Jane Doe",
+                    "info":{
+                        "mobile":"865-784-9986",
+                        "passport":"1234 123456",
+                        "card":"1234"
+                    },
+                    "email":"jd@example.org",
+                    "dateOfBirth":"1980-01-02T00:00:00.000Z",
+                    "registered":true
+                }
+                };
+            try {
+                const response = await fetch( url, {
+                    credentials: 'same-origin',
+                    method: 'POST',
+                    body:  JSON.stringify( data ),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                } );
+                const json = await response.text();
+                console.log('Успех:', json);
+                var ans = JSON.parse(json);
+                $( "#id" ).text( ans.id );
+                $( "#name" ).text( ans.product );
+                $( "#age" ).text( ans.barcode );
+                $( "#gender" ).text( ans.person_name );
+                $( "#race" ).text( ans.person_phone );
+            } catch ( error ) {
+                console.error( 'Ошибка:', error );
+            }
+        }
+    </script>
+    <input type="button" value="scan" name="d" OnClick="postData();">
+<p>ID: <span id="id"></span> </p>
+<p>Товар: <span id="name"></span> </p>
+<p>Штрих код: <span id="age"></span> </p>
+<p>Имя: <span id="gender"></span> </p>
+<p>Мобильный: <span id="race"></span> </p>
+</body>
+</html>
