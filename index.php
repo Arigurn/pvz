@@ -32,13 +32,6 @@ if ($_GET['work'] > 0)
 if ( isset( $_POST ) ) {
     $json = file_get_contents('php://input');
     $msg = json_decode($json, true);
-    require( "php/rb-mysql.php" );
-    R::setup( 'mysql:host=localhost;dbname=Role-play', 'php', '157855' );
-    if (!R::testConnection()) {
-		echo "<br/>Не удалось подключиться к БД";
-		exit;
-	}
-    $msg = json_decode($json, true);
     dbcreatefield( $msg );
 }
 if ($_GET['demo'] == 1) {
